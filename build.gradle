@@ -33,7 +33,7 @@ configurations {
 
 repositories {
     maven { url = "https://repo.papermc.io/repository/maven-public/" }
-    maven { url = "https://maven.nova-committee.cn/releases"}
+    maven { url 'https://jitpack.io' }
     mavenCentral()
 }
 
@@ -53,7 +53,7 @@ dependencies {
 
     shadow "net.kyori:event-api:${eventbus_version}"
     shadow "net.kyori:event-method:${eventbus_version}"
-    shadow "cn.evole.onebot:OneBot-SDK:${sdk_version}"
+    shadow "com.github.cnlimiter:onebot-sdk:711e4d38ce"
     shadow "org.java-websocket:Java-WebSocket:${websocket_version}"
 
     annotationProcessor("org.projectlombok:lombok:1.18.24")
@@ -78,29 +78,4 @@ shadowJar {
     archiveBaseName.set(project.archives_base_name)
     archiveVersion.set(project.client_version)
 
-}
-
-publishing {
-    publications {
-        shadow(MavenPublication) { publication ->
-            project.shadow.component(publication)
-            version = "${project.client_version}"
-            artifactId = "${project.archives_base_name}"
-            groupId = "${project.maven_group}"
-        }
-    }
-
-    repositories {
-        if (System.getenv('MAVEN_USERNAME') != null && System.getenv('MAVEN_PASSWORD') != null) {
-            maven {
-                name 'release'
-                url = 'https://maven.nova-committee.cn/releases'
-
-                credentials {
-                    username System.getenv('MAVEN_USERNAME')
-                    password System.getenv('MAVEN_PASSWORD')
-                }
-            }
-        }
-    }
 }
