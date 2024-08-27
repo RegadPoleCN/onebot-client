@@ -90,3 +90,7 @@ publishing {
         }
     }
 }
+
+publishShadowPublicationToMavenLocal {
+    dependsOn(jar)
+}
