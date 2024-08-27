@@ -79,3 +79,14 @@ shadowJar {
     archiveVersion.set(project.client_version)
 
 }
+
+publishing {
+    publications {
+        shadow(MavenPublication) { publication ->
+            project.shadow.component(publication)
+            version = "${project.client_version}"
+            artifactId = "${project.archives_base_name}"
+            groupId = "${project.maven_group}"
+        }
+    }
+}
